@@ -41,7 +41,6 @@
       transform: translateX(-50%);
     }
     
-    /* 標題下裝飾線 */
     h2::after {
       content: '';
       display: block;
@@ -129,6 +128,7 @@
       font-size: 1.1rem;
     }
 
+    /* --- 選單設定 (電腦+手機修復版) --- */
     .top-menu {
       margin-top: 15px;
       background: #ffffff;
@@ -136,6 +136,9 @@
       padding: 0 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
       display: inline-block;
+      /* 讓選單在手機上比較好點，避免重疊 */
+      position: relative; 
+      z-index: 500;
     }
 
     .menu {
@@ -155,15 +158,26 @@
       cursor: pointer;
       padding: 15px 10px;
       transition: color 0.2s;
+      /* 防止手機上點擊出現藍色背景 */
+      -webkit-tap-highlight-color: transparent; 
     }
 
     .menu > li:hover {
       color: #ff6ca8;
     }
 
-    .menu > li:hover .submenu {
-      display: block;
-      animation: fadeIn 0.3s ease;
+    /* 電腦版維持 Hover 效果 */
+    @media (min-width: 769px) {
+        .menu > li:hover .submenu {
+          display: block;
+          animation: fadeIn 0.3s ease;
+        }
+    }
+
+    /* 手機版：新增一個 class 來控制顯示 */
+    .submenu.show-menu {
+        display: block;
+        animation: fadeIn 0.3s ease;
     }
 
     @keyframes fadeIn {
@@ -221,6 +235,7 @@
       margin-top: 0;
     }
 
+    /* 這裡新增了 .quote-display a 的樣式 */
     .quote-display {
       font-size: 1.2rem;
       font-weight: bold;
@@ -232,17 +247,30 @@
       margin: 20px 0;
       transition: opacity 0.5s ease;
     }
+    
+    /* 讓推薦裡的連結特別漂亮 */
+    .quote-display a {
+        color: #d84080; /* 使用跟標題一樣的粉紅色 */
+        text-decoration: underline;
+        text-decoration-thickness: 2px; /* 讓底線稍微粗一點 */
+        margin: 0 5px; /* 連結跟文字中間留點呼吸空間 */
+        transition: all 0.2s ease;
+    }
+
+    .quote-display a:hover {
+        color: #ff6ca8; /* 滑鼠移過去變亮粉色 */
+        background-color: #fff0f5; /* 加個淡淡背景色 */
+        border-radius: 4px;
+    }
 
     #member-detail-view {
       background: #fff;
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-      /* 確保切換時有平滑高度過渡（非必須但體驗較好） */
       min-height: 500px; 
     }
 
-    /* 內容淡入淡出效果 */
     #member-content {
       opacity: 1;
       transition: opacity 0.3s ease-in-out;
@@ -388,7 +416,7 @@
 
     <nav class="top-menu">
       <ul class="menu">
-         <li>🔗 官方連結
+         <li onclick="toggleMenu(event, this)">🔗 官方連結
           <ul class="submenu">
             <li><a href="https://www.storm-labels.co.jp/s/js/artist/J0011?ima=1559&wovn=zh-CHT" target="_blank">官方網站</a></li>
             <li><a href="https://www.youtube.com/@naniwadanshi" target="_blank">YT頻道</a></li>
@@ -397,7 +425,7 @@
             <li><a href="https://www.tiktok.com/@naniwadanshi_storm?is_from_webapp=1&sender_device=pc" target="_blank">TikTok</a></li>
           </ul>
         </li>
-        <li>🎵 歌曲推薦
+        <li onclick="toggleMenu(event, this)">🎵 歌曲推薦
           <ul class="submenu">
             <li><a href="https://youtu.be/e955oEATDBo?si=yU0KIQEBa3H2cYOC" target="_blank">初心LOVE</a></li>
             <li><a href="https://youtu.be/gNJKYMiMP3E?si=eQmTmbk2AyDl89Eq" target="_blank">鑽石微笑</a></li>
@@ -405,20 +433,21 @@
             <li><a href="https://youtu.be/Olr7YwLu3kQ?si=vFBSQrxJq7PK-sj-" target="_blank">Alpha</a></li>
           </ul>
         </li>
-        <li>📺 綜藝推薦
+        <li onclick="toggleMenu(event, this)">📺 綜藝推薦
           <ul class="submenu">
             <li><a href="https://youtu.be/SnoOG3dM_fE?si=gjdluqHweYbqrMHi" target="_blank">戰慄迷宮大爆叫</a></li>
             <li><a href="https://youtu.be/UO-1ODMx8-o?si=KpoaRPr3eE-uXGNV" target="_blank">詞語狙擊手</a></li>
             <li><a href="https://youtu.be/aiNZhv11nOA?si=kGmhz6oKL9MdNWgE" target="_blank">72個裝傻和吐槽</a></li>
           </ul>
         </li>
-        <li>🎤 舞台推薦
+        <li onclick="toggleMenu(event, this)">🎤 舞台推薦
           <ul class="submenu">
             <li><a href="https://youtu.be/jH_r9eq_ERw?si=tiRg-mR2MimF2Ea6" target="_blank">Poppin' Hoppin' Lovin'</a></li>
             <li><a href="https://youtu.be/0hYX0sgXshI?si=ECgmabG8YH1VcUAx" target="_blank">Soda Pop Love</a></li>
             <li><a href="https://youtu.be/RxeNV7EyYuk?si=zo_rSHdgVTe0kxMe" target="_blank">The Answer</a></li>
           </ul>
-          <li>🎮 遊戲頻道
+        </li>
+        <li onclick="toggleMenu(event, this)">🎮 遊戲頻道
           <ul class="submenu">
             <li><a href="https://www.youtube.com/@HOKAGO_GAMING_LIFE" target="_blank">放課後Gaming Life</a></li>
             <li><a href="https://youtu.be/6yMTKhR1w-M" target="_blank">Over cook！</a></li>
@@ -431,9 +460,9 @@
   <section>
     <div class="random-section">
       <h3>✨ 讓浪花男子陪你每一天 ✨</h3>
-      <p>不知道今天要聽哪首歌？或是需要一點能量嗎？點擊按鈕抽取今日驚喜！</p>
+      <p>點擊按鈕抽取浪花男子送給你的今日驚喜！</p>
       <div class="quote-display" id="quote-box">準備好了嗎？</div>
-      <button onclick="drawFortune()">💖 抽取今日語錄 / 歌曲 💖</button>
+      <button onclick="drawFortune()">💖 抽取今日驚喜 / 歌曲 💖</button>
     </div>
 
     <h2>☁️ 團體介紹 ☁️</h2>
@@ -512,6 +541,31 @@
   </section>
 
   <script>
+    // --- 手機版選單切換功能 ---
+    function toggleMenu(event, element) {
+        if (window.innerWidth > 768) return;
+        
+        const submenu = element.querySelector('.submenu');
+        if (!submenu) return;
+
+        const isOpen = submenu.classList.contains('show-menu');
+
+        document.querySelectorAll('.submenu').forEach(el => el.classList.remove('show-menu'));
+
+        if (!isOpen) {
+            submenu.classList.add('show-menu');
+        }
+        
+        event.stopPropagation();
+    }
+
+    document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 768) {
+             document.querySelectorAll('.submenu').forEach(el => el.classList.remove('show-menu'));
+        }
+    });
+
+    // --- 成員資料 ---
     const memberOrder = ["daigo","ryusei","michi","kento","jo","kazuya","kyohei"];
     let currentIndex = 0;
  
@@ -583,15 +637,34 @@
 
     const quotes = [
         "大橋和也：「Don't feel, feel」☝️",
+        "大橋和也：「今日もお疲れ様、明日も頑張ってね（今天辛苦了，明天也要繼續加油喔）」💪",
+        "大橋和也：「好き！好き！大好き～」💓",
+        "大橋和也：「ぎゅっとして！（抱一下）」🫂",
         "道枝駿佑：「絕壁、完璧（完美）！」✨",
-        "大西流星：「眼睛裡要住著星星喔！」👀✨",
+        "道枝駿佑：「あげみざわ～（敲興奮der～）」🤟",
+        "道枝駿佑：「1%の可能性を、100%信じる（百分百相信那1％的可能性）」👍",
+        "大西流星：「東大阪に飛ばしたろかぁ！（把你揍飛到東大阪喔）」👊",
+        "大西流星：「大～好きだよ（最～喜歡你了喔）」💖",
         "藤原丈一郎：「這裡不是甲子園啦！」⚾",
+        "藤原丈一郎：「俺は、お前の事が大好き（我啊，真的很喜歡你這個人）」💘",
+        "藤原丈一郎：「キスしてあげる（給你一個吻）」😘",
         "高橋恭平：「你好、謝謝、車はオープンカー（車是敞篷車）」🚗",
+        "高橋恭平：「うれC（好開C）」😆",
+        "高橋恭平：「クリスマス、クリスマス、カタカナ五文字（聖誕節、聖誕節、片假名有五個字）」🖐️😁",
+        "高橋恭平：「たのC（好開C）」😁",
         "西畑大吾：「天才！最高！天最高！」🙌",
+        "西畑大吾：「僕じゃ、だめ？（我的話...不行嗎？）」🥺",
         "長尾謙杜：「安心、安全、長尾謙杜！」💛",
-        "今日推薦：聽聽《初心LOVE》找回初戀的感覺吧！💗",
-        "今日運勢：大吉！今天看哪位成員都會心動不已喔！🥰",
-        "今日推薦：聽聽《Happy Surprise》帶你一起度過充滿驚喜的一天！🎁"
+        "長尾謙杜：「僕のジュリエットはどこかな？（我的茱麗葉在哪裡）」👸🏻",
+        "長尾謙杜：「今日も快便（今天也排便順暢喔）」💩",
+        "今日推薦：聽聽 <a href='https://youtu.be/e955oEATDBo?si=VTkD9suedUZ6WvfF' target='_blank'>《初心LOVE》</a> 找回初戀的感覺吧！💗",
+        "今日推薦：來一首 <a href='https://youtu.be/Olr7YwLu3kQ?si=ThiXzpliUQLsXLKx' target='_blank'>《Alpha》</a> 和浪花男子一同譜寫屬於你們的Love song！💌",
+        "今日推薦：笑一個吧！來首 <a href='https://youtu.be/gNJKYMiMP3E?si=wiXiaATzy6uLcrEw' target='_blank'>《ダイヤモンドスマイル》</a> 讓浪花男子看看你那如鑽石般的微笑💎",
+        "今日推薦：來首 <a href='https://youtu.be/78aFPj1CAxg?si=sOT_yF8hTdgh85A8' target='_blank'>《I Wish》</a> 與七位男友來場浪漫的秋冬之戀吧！🍂",
+        "今日推薦：聽聽 <a href='https://youtu.be/Za9xAlR6-W8?si=OPyZZLy7PM2kKVus' target='_blank'>《コイスルヒカリ》</a> 成為浪花男子心中最閃耀的那道光！🌟",
+        "今日推薦：感覺提不起勁嗎？沒關係！聽聽 <a href='https://youtu.be/iungpIUpgyA?si=47Dmh1T4Wqy9Gzbs' target='_blank'>《Don’t Worry!!》</a> 一切都會好起來的喔！🥰",
+        "今日運勢：大吉！今天看哪位成員都會心動不已喔！😳",
+        "今日推薦：聽聽 <a href='https://youtu.be/6ok1kdB1fUc?si=qXGFy5_Tz-1Irted' target='_blank'>《ハッピーサプライズ》</a> 帶你一起度過充滿驚喜的一天！🎁"
     ];
 
     function drawFortune() {
@@ -631,7 +704,6 @@
       document.getElementById("member-detail-view").style.display="block";
       document.getElementById("member-content").style.opacity = 1;
 
-      // 修改重點：只微調到詳細頁面，不會跳到最上面的抽籤區
       document.getElementById("member-detail-view").scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 
@@ -650,7 +722,6 @@
     function closeMember(){
       document.getElementById("member-detail-view").style.display="none";
       document.getElementById("member-list-view").style.display="grid";
-      // 修改重點：返回時滾動到「成員介紹」標題，而不是網頁最頂部
       document.getElementById("members-title").scrollIntoView({ behavior: "smooth", block: "nearest" }); 
     }
   </script>
