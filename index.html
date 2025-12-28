@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>なにわ男子 入坑指南</title>
+  <style>
+    /* --- 全域設定 --- */
+    body {
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "StHeiti", sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 0;
+      line-height: 1.8;
+      color: #444;
+    }
+
+    header {
+      background: linear-gradient(to bottom, #fff0f5, #ffedf5);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 3px solid #ffd6e8;
+      box-shadow: 0 2px 10px rgba(216, 64, 128, 0.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      color: #d84080;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 0px #fff;
+    }
+
+    h2 {
+      color: #e35a97;
+      margin-top: 40px;
+      text-align: center;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    /* 標題下裝飾線 */
+    h2::after {
+      content: '';
+      display: block;
+      width: 50%;
+      height: 3px;
+      background: #ffd6e8;
+      margin: 5px auto 0;
+      border-radius: 2px;
+    }
+
+    section {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    /* --- 跑馬燈 --- */
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      background: #fff5fa;
+      margin-top: 15px;
+      border-radius: 20px;
+      height: 40px;
+      position: relative;
+      border: 1px solid #ffe0ed;
+    }
+
+    .marquee p {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 1rem;
+      color: #d84080;
+      font-weight: bold;
+      line-height: 40px;
+      margin: 0;
+      animation: marquee 18s linear infinite;
+    }
+
+    .marquee:hover p {
+      animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+      from { left: 100%; transform: translateX(0); }
+      to { left: 0; transform: translateX(-100vw); }
+    }
+
+    /* --- 成員列表卡片 --- */
+    .member-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      padding: 10px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(216, 64, 128, 0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(216, 64, 128, 0.2);
+      border-color: #ffd6e8;
+    }
+
+    .card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      margin: 10px 0 0;
+      color: #bf3d78;
+      font-size: 1.1rem;
+    }
+
+    .top-menu {
+      margin-top: 15px;
+      background: #ffffff;
+      border-radius: 50px;
+      padding: 0 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      display: inline-block;
+    }
+
+    .menu {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 0;
+      margin: 0;
+      font-weight: bold;
+      color: #d84080;
+    }
+
+    .menu > li {
+      position: relative;
+      cursor: pointer;
+      padding: 15px 10px;
+      transition: color 0.2s;
+    }
+
+    .menu > li:hover {
+      color: #ff6ca8;
+    }
+
+    .menu > li:hover .submenu {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px) translateX(-50%); }
+      to { opacity: 1; transform: translateY(0) translateX(-50%); }
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px;
+      min-width: 200px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      z-index: 100;
+      border: 2px solid #fff0f5;
+    }
+
+    .submenu li {
+      margin: 8px 0;
+      text-align: center;
+    }
+
+    .submenu a {
+      text-decoration: none;
+      color: #bf3d78;
+      font-size: 0.95rem;
+      display: block;
+      padding: 5px;
+      border-radius: 6px;
+    }
+
+    .submenu a:hover {
+      background-color: #fff5fa;
+      color: #d84080;
+    }
+    
+    .random-section {
+      background: #fff;
+      border: 2px dashed #ffd6e8;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .random-section h3 {
+      color: #d84080;
+      margin-top: 0;
+    }
+
+    .quote-display {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #555;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 0;
+      transition: opacity 0.5s ease;
+    }
+
+    #member-detail-view {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      /* 確保切換時有平滑高度過渡（非必須但體驗較好） */
+      min-height: 500px; 
+    }
+
+    /* 內容淡入淡出效果 */
+    #member-content {
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
+    }
+    
+    .detail-container {
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+    }
+    
+    .detail-left {
+      flex: 1;
+      max-width: 350px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .detail-img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 5px 5px 0px #ffd6e8;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .song-recommendation {
+      background: #fff0f5;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid #ffd6e8;
+    }
+    
+    .song-btn {
+      display: block;
+      width: 100%;
+      background: #ff6ca8;
+      color: white;
+      text-decoration: none;
+      padding: 10px 0;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.2s;
+      margin-bottom: 10px;
+      box-sizing: border-box; 
+    }
+    
+    .song-btn:hover {
+      background: #d84080;
+    }
+
+    .song-desc {
+      font-size: 0.9rem;
+      color: #666;
+      text-align: left;
+      line-height: 1.5;
+    }
+
+    .detail-text {
+      flex: 2;
+      text-align: left;
+    }
+
+    .detail-text h2 {
+      text-align: left;
+      left: 0;
+      transform: none;
+      font-size: 2rem;
+      margin-top: 0;
+      border-bottom: 2px dashed #ffd6e8;
+      padding-bottom: 10px;
+      display: block;
+    }
+    
+    .detail-text h2::after { display: none; }
+
+    .detail-desc {
+      font-size: 1.05rem;
+      color: #555;
+      white-space: pre-line;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+    }
+
+    button {
+      background: #ffd6e8;
+      color: #d84080;
+      font-weight: bold;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background: #ffbcd6;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .detail-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .detail-left {
+        max-width: 100%;
+      }
+      .detail-text {
+        text-align: left;
+        width: 100%;
+      }
+      .detail-text h2 {
+        text-align: center;
+      }
+      .menu {
+        gap: 5px;
+      }
+      .menu > li {
+        font-size: 0.9rem;
+        padding: 10px 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌸 なにわ男子 入坑指南 🌸</h1>
+    <div class="marquee">
+      <p>✨ 歡迎來到なにわ男子入坑指南 ✨ 帶你簡單認識七位關西人的魅力 ｜ 歌曲・舞台・搞笑綜藝推薦給你 💗</p>
+    </div>
+
+    <nav class="top-menu">
+      <ul class="menu">
+         <li>🔗 官方連結
+          <ul class="submenu">
+            <li><a href="https://www.storm-labels.co.jp/s/js/artist/J0011?ima=1559&wovn=zh-CHT" target="_blank">官方網站</a></li>
+            <li><a href="https://www.youtube.com/@naniwadanshi" target="_blank">YT頻道</a></li>
+            <li><a href="https://www.instagram.com/naniwadanshi728official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">IG官方帳號</a></li>
+            <li><a href="https://x.com/728_storm?s=21" target="_blank">X（Twitter）</a></li>
+            <li><a href="https://www.tiktok.com/@naniwadanshi_storm?is_from_webapp=1&sender_device=pc" target="_blank">TikTok</a></li>
+          </ul>
+        </li>
+        <li>🎵 歌曲推薦
+          <ul class="submenu">
+            <li><a href="https://youtu.be/e955oEATDBo?si=yU0KIQEBa3H2cYOC" target="_blank">初心LOVE</a></li>
+            <li><a href="https://youtu.be/gNJKYMiMP3E?si=eQmTmbk2AyDl89Eq" target="_blank">鑽石微笑</a></li>
+            <li><a href="https://youtu.be/78aFPj1CAxg?si=IrotwhNjjVHJspiq" target="_blank">I Wish</a></li>
+            <li><a href="https://youtu.be/Olr7YwLu3kQ?si=vFBSQrxJq7PK-sj-" target="_blank">Alpha</a></li>
+          </ul>
+        </li>
+        <li>📺 綜藝推薦
+          <ul class="submenu">
+            <li><a href="https://youtu.be/SnoOG3dM_fE?si=gjdluqHweYbqrMHi" target="_blank">戰慄迷宮大爆叫</a></li>
+            <li><a href="https://youtu.be/UO-1ODMx8-o?si=KpoaRPr3eE-uXGNV" target="_blank">詞語狙擊手</a></li>
+            <li><a href="https://youtu.be/aiNZhv11nOA?si=kGmhz6oKL9MdNWgE" target="_blank">72個裝傻和吐槽</a></li>
+          </ul>
+        </li>
+        <li>🎤 舞台推薦
+          <ul class="submenu">
+            <li><a href="https://youtu.be/jH_r9eq_ERw?si=tiRg-mR2MimF2Ea6" target="_blank">Poppin' Hoppin' Lovin'</a></li>
+            <li><a href="https://youtu.be/0hYX0sgXshI?si=ECgmabG8YH1VcUAx" target="_blank">Soda Pop Love</a></li>
+            <li><a href="https://youtu.be/RxeNV7EyYuk?si=zo_rSHdgVTe0kxMe" target="_blank">The Answer</a></li>
+          </ul>
+          <li>🎮 遊戲頻道
+          <ul class="submenu">
+            <li><a href="https://www.youtube.com/@HOKAGO_GAMING_LIFE" target="_blank">放課後Gaming Life</a></li>
+            <li><a href="https://youtu.be/6yMTKhR1w-M" target="_blank">Over cook！</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section>
+    <div class="random-section">
+      <h3>✨ 讓浪花男子陪你每一天 ✨</h3>
+      <p>不知道今天要聽哪首歌？或是需要一點能量嗎？點擊按鈕抽取今日驚喜！</p>
+      <div class="quote-display" id="quote-box">準備好了嗎？</div>
+      <button onclick="drawFortune()">💖 抽取今日語錄 / 歌曲 💖</button>
+    </div>
+
+    <h2>☁️ 團體介紹 ☁️</h2>
+    <section id="intro" style="text-align: center; background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      <p><strong>なにわ男子（浪花男子）</strong>，是日本 STARTO ENTERTAINMENT 旗下的七人男子偶像團體。<br>團體名稱由「浪花男子」和「章魚燒男子」中挑選，最終由浪花男子獲勝。<br>名稱中的「浪花」源自大阪的古稱。粉絲名稱為<strong>「なにふぁむ」 （NaniFamu）</strong>。<br><br>✨ 於 2021年11月12日 正式CD出道 ✨</p>
+      
+      <div style="margin-top: 25px;">
+        <a href="https://youtu.be/sHk8a3flepE?si=Z4Av_Pqx0hft40Bd" target="_blank" style="display: inline-block; background: #ff6ca8; color: white; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            🎞️ 用一部MV簡單帶你認識なにわ男子成員
+        </a>
+      </div>
+      </section>
+    
+    <h2 id="members-title">👑 成員介紹 👑</h2>
+
+    <div id="member-list-view" class="member-list">
+      <div class="card member-card" onclick="openMember('daigo')">
+        <img src="https://shoplineimg.com/67629af4191b07007b434c48/6765224e46f118001152c5f4/800x.webp?source_format=jpg" alt="西畑大吾" />
+        <h3>西畑大吾<br><span style="font-size:0.8rem; color:#888;">Nishihata Daigo</span></h3>
+      </div>
+      <div class="card member-card" onclick="openMember('ryusei')">
+        <img src="https://shoplineimg.com/67629af4191b07007b434c48/67652215d3f1b500108ea78d/800x.webp?source_format=jpg" alt="大西流星" />
+        <h3>大西流星<br><span style="font-size:0.8rem; color:#888;">Onishi Ryusei</span></h3>
+      </div>
+      <div class="card member-card" onclick="openMember('michi')">
+        <img src="https://shoplineimg.com/67629af4191b07007b434c48/67652183320ba6000a6042e0/800x.webp?source_format=jpg" alt="道枝駿佑" />
+        <h3>道枝駿佑<br><span style="font-size:0.8rem; color:#888;">Michieda Shunsuke</span></h3>
+      </div>
+      <div class="card member-card" onclick="openMember('kento')">
+        <img src="https://shoplineimg.com/67629af4191b07007b434c48/67651fa04b4c0b000e71bb92/800x.webp?source_format=jpg" alt="長尾謙杜" />
+        <h3>長尾謙杜<br><span style="font-size:0.8rem; color:#888;">Nagao Kento</span></h3>
+      </div>
+      <div class="card member-card" onclick="openMember('jo')">
+        <img src="https://shoplineimg.com/67629af4191b07007b434c48/67651edf54773b000d261a97/800x.webp?source_format=jpg" alt="藤原丈一郎" />
+        <h3>藤原丈一郎<br><span style="font-size:0.8rem; color:#888;">Fujiwara Joichiro</span></h3>
+      </div>
+      <div class="card member-card" onclick="openMember('kazuya')">
+        <img src="https://shoplineimg.com/67629af4191b07007b434c48/67651cb4b604aa000ba788a5/800x.webp?source_format=jpg" alt="大橋和也" />
+        <h3>大橋和也<br><span style="font-size:0.8rem; color:#888;">Ohashi Kazuya</span></h3>
+      </div>
+      <div class="card member-card" onclick="openMember('kyohei')">
+        <img src="https://shoplineimg.com/67629af4191b07007b434c48/6765215afc209b000c59a5ea/800x.webp?source_format=jpg" alt="高橋恭平" />
+        <h3>高橋恭平<br><span style="font-size:0.8rem; color:#888;">Takahashi Kyohei</span></h3>
+      </div>
+     </div>
+
+    <div id="member-detail-view" style="display:none;">
+      <div class="btn-group">
+        <button onclick="closeMember()">← 返回列表</button>
+        <div>
+           <button onclick="changeMember(-1)">← 上一位</button>
+           <button onclick="changeMember(1)">下一位 →</button>
+        </div>
+      </div>
+      
+      <div id="member-content">
+        <div class="detail-container">
+            <div class="detail-left">
+                <img id="detail-img" src="" class="detail-img">
+                <div class="song-recommendation">
+                    <a id="detail-song-link" href="" target="_blank" class="song-btn"></a>
+                    <div class="song-desc">
+                        💡 <b>個人推薦：</b><br>
+                        <span id="detail-song-desc"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-text">
+                <h2 id="detail-name"></h2>
+                <div id="detail-desc" class="detail-desc"></div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const memberOrder = ["daigo","ryusei","michi","kento","jo","kazuya","kyohei"];
+    let currentIndex = 0;
+ 
+    const memberData = {
+      daigo: {
+        name: "西畑大吾",
+        img: "https://web.familyclub.jp/images/53/a3d/3d82aa6ac1c62ac0ffafe43e85bd3.jpg",
+        icon: "❤️",
+        desc: "<b>1997年01月09日生 AB型，應援色為紅色❤️</b><br>暱稱：大ちゃん<br>於2011年04月03日加入事務所，2021年11月12日以「浪花男子」成員的身分CD出道。<br><br>● 萌點：笑的時候會露出小虎牙。<br>● 因為太喜歡成員大西流星，曾經在向流星借東西時，被對方隔著防盜鍊遞東西。<br>● 因口條非常好，MC（主持）能力非常強，團體的YT頻道（なにわTube）幾乎都由他主持。<br>● 團體的主C位，是很溫柔可靠的人。<br>● 因為長得漂亮可愛又小小隻的，曾經被一位老婆婆說：「謝謝你小女孩。」<br>● 曾經在「最想成為戀人」的投票中蟬聯三次第一名。",
+        recSong: "Missing",
+        recSongUrl: "https://youtu.be/10vkpd2-wEk?si=Vj3CJyFjXYM5-xT2",
+        recSongDesc: "這首是大吾主演的電影「敲響密室之門」的主題曲，MV帶點神祕感、帥氣，與先前歌曲走的元氣可愛風不同，這首帶有爵士樂和小調的情感"
+      },
+      ryusei: {
+        name: "大西流星",
+        img: "https://web.familyclub.jp/images/53/ca3/f8b5daf0592322701b5447d72d8b9.jpg",
+        icon: "🧡",
+        desc: "<b>2001年08月07日生 O型，應援色為橘色🧡</b><br>暱稱：りゅちぇ（Ryuche）<br>於2012年07月14日加入事務所，2021年11月12日以「浪花男子」成員的身分CD出道。<br><br>● 可愛的天使外貌下藏著一顆惡魔的心！在團內是小惡魔般的存在，很有小心機（但是超級可愛）。<br>● 長相可愛但笑聲卻是大叔音！？超會做綜藝效果，上節目會很有話題或是鏡頭畫面比較多。<br>● 演唱會周邊設計擔當！手燈、Ｔ恤、毛巾等周邊皆出自流星之手！<br>● 化妝技術超級強！(還有考到化妝證照!)曾和化妝品品牌合作商品。<br>● 從5歲就開始學習舞蹈，舞蹈底子超強超有實力！跳舞時的頓點讓人看了很舒服。",
+        recSong: "コイスルヒカリ",
+        recSongUrl: "https://youtu.be/Za9xAlR6-W8?si=Zvl_g9zLPomfFRic",
+        recSongDesc: "這首是流星主演的電影「不知戀愛的我們」的主題曲，歌曲貫穿校園青春以及自己複雜的情感，是很值得一聽再聽的歌"
+      },
+      michi: {
+        name: "道枝駿佑",
+        img: "https://web.familyclub.jp/images/53/340/2b8133bb618d3af1f0a06b556faf5.jpg",
+        icon: "🩷",
+        desc: "<b>2002年07月25日生 O型，應援色為粉色🩷</b><br>暱稱：みっちー（Micchii）<br>於2014年11月23日加入事務所，2021年11月12日以「浪花男子」成員的身分CD出道。<br><br>● 團內美型擔當、ACE兼超級大團寵。<br>● 與外表的帥氣截然不同的天然氣質！講話笨笨呆呆的很可愛<br>● 長得很高但卻非常不擅長球類方面的運動。<br>● 在幼稚園時就被投簡歷到事務所，被老闆說「這裡可不是托兒所啊！」<br>● 在戲劇、影視發展大受好評（曾出演《金田一少年事件簿》中的金田一）。<br>● 多次在《ViVi》獲得「國寶級帥哥」稱號第一名，被譽為「千年一遇的美少年」。",
+        recSong: "I Wish",
+        recSongUrl: "https://youtu.be/78aFPj1CAxg?si=JLqk4-MbgUsMabzB",
+        recSongDesc: "這首是道枝主演的電影「我的第二青春」的主題曲，整首MV帶有秋日男友感，歌詞也像在告白一樣浪漫，很適合在冷冷的天以及情緒低落的時候聽"
+      },
+      kento: {
+        name: "長尾謙杜",
+        img: "https://web.familyclub.jp/images/53/e70/03f43c402c065286c0f3fed57ffda.jpg",
+        icon: "💛",
+        desc: "<b>2002年08月15日生 B型，應援色為黃色💛</b><br>暱稱：けんけん（Kenken）<br>於2014年11月23日加入事務所，2021年11月12日以「浪花男子」成員的身分CD出道。<br><br>● 團裡年紀最小的，非常有元氣，早上會超級有活力的跟隊友打招呼。<br>● 團內服裝擔當！演唱會的表演服裝、MV服裝都是由他親手設計出來的。<br>● 時尚擔當兼美感怪物，常常會去參觀一些展覽尋找靈感。<br>● 很喜歡足球，喜歡的隊伍如果輸了，隔天就會非常沒精神。<br>● 在演唱會上的表現非常令人心動，在粉絲界流傳著「他擔狩獵者」的稱號。",
+        recSong: "Doki it",
+        recSongUrl: "https://youtu.be/Oh7Sin6hTpc?si=uedl02WrHungXHoH",
+        recSongDesc: "充滿元氣的歌曲，非常適合活力滿滿的謙杜！這次MV裡的衣服也是由謙杜設計的！搭配MV特效一起看真的超適合"
+      },
+      jo: {
+        name: "藤原丈一郎",
+        img: "https://web.familyclub.jp/images/53/b74/8814176656dc1615ae07a3ebfa003.jpg",
+        icon: "💙",
+        desc: "<b>1996年02月08日生 B型，應援色為藍色💙</b><br>暱稱：丈くん<br>於2004年02月21日加入事務所，2021年11月12日以「浪花男子」成員的身分CD出道。<br><br>● 團內最年長，很溫柔，是團內可靠的哥哥，擔任副隊長、舞擔、rap擔。<br>● 小學二年級就加入事務所了，經歷漫長等待終於出道。<br>● 擔任虛擬偶像「海堂飛鳥」的中之人。<br>● 長得很帥但不會好好用臉，很搞笑的人，完全沒有偶像包袱。<br>● 和成員大橋和也認識十年以上，被戲稱為「熟年夫婦」。<br>● 超級敬業的偶像！2024年台灣巡演時腳骨折仍堅持完成演出，令人敬佩。",
+        recSong: "Poppin' Hoppin' Lovin'",
+        recSongUrl: "https://youtu.be/8KXbNShp8rs?si=tTV6p5ybmXFvwNs2",
+        recSongDesc: "這是一首充滿活力的歌，MV非常五顏六色，和丈一郎給人的感覺一樣，我覺得很適合他，所以推薦給大家！"
+      },
+      kazuya: {
+        name: "大橋和也",
+        img: "https://web.familyclub.jp/images/53/202/9db4b352a2bf14ddb41744acd8823.jpg",
+        icon: "💚",
+        desc: "<b>1997年08月09日生 B型，應援色為綠色💚</b><br>暱稱：はっすん（Hassun）<br>於2009年04月03日加入事務所，2021年11月12日以「浪花男子」成員的身分CD出道。<br><br>● 擔任隊長，歌擔兼舞擔，能唱出很清澈的高音。<br>● 被粉絲稱作跳舞機器，舞蹈力道和節奏感抓得非常好。<br>● 很喜歡做飯和吃東西，吃飯時的表情很幸福。<br>● 擔任虛擬偶像「苺谷星空」的中之人。<br>● 超級溫柔，雖然常常被團員們捉弄，但都笑笑不會生氣。<br>● 為了讓演出完美，甚至會用休息時間一直逼迫自己練習到最好。<br>● 喜歡全人類",
+        recSong: "サチアレ",
+        recSongUrl: "https://youtu.be/pBgToE4wtwQ?si=3nNTcyEpFQx5TMmD",
+        recSongDesc: "這首是大橋很喜歡的老師一手操辦（作詞、作曲、編曲），歌曲名字的中文翻譯是「祝你幸福」，是一首很活潑且充滿祝福的歌，很符合大橋的形象"
+      },
+      kyohei: {
+        name: "高橋恭平",
+        img: "https://web.familyclub.jp/images/53/5b4/8b027886b39e3a150e0145ab15cc1.jpg",
+        icon: "💜",
+        desc: "<b>2000年02月28日生 B型，應援色為紫色💜</b><br>暱稱：きょろ（Kyoro）<br>於2014年11月23日加入事務所，2021年11月12日以「浪花男子」成員的身分CD出道。<br><br>● 簡歷是姐姐幫忙投遞的，直到面試前一天本人才知道。<br>● 笨蛋帥哥，反差感極強，有一套自己專屬的「恭平語」。<br>● 超愛玩遊戲，為了破關甚至可以一天只睡兩小時。<br>● 明明身高不矮，卻因為常常駝背導致看起來身高不高。<br>● 因為長相帥氣冷酷，被多次選為少女漫畫改編電視劇的男主角。",
+        recSong: "Special Kiss",
+        recSongUrl: "https://youtu.be/pgel7OKr7ag?si=Oo8qFi4x7PcNfrV9",
+        recSongDesc: "這首是恭平主演的漫改劇「千輝同學未免甜得過火」的主題曲，特別的吻送給特別的你💜整首歌給人心動且溫暖的感覺，應該很適合在結婚的時候撥放吧"
+      }
+    };
+
+    const quotes = [
+        "大橋和也：「Don't feel, feel」☝️",
+        "道枝駿佑：「絕壁、完璧（完美）！」✨",
+        "大西流星：「眼睛裡要住著星星喔！」👀✨",
+        "藤原丈一郎：「這裡不是甲子園啦！」⚾",
+        "高橋恭平：「你好、謝謝、車はオープンカー（車是敞篷車）」🚗",
+        "西畑大吾：「天才！最高！天最高！」🙌",
+        "長尾謙杜：「安心、安全、長尾謙杜！」💛",
+        "今日推薦：聽聽《初心LOVE》找回初戀的感覺吧！💗",
+        "今日運勢：大吉！今天看哪位成員都會心動不已喔！🥰",
+        "今日推薦：聽聽《Happy Surprise》帶你一起度過充滿驚喜的一天！🎁"
+    ];
+
+    function drawFortune() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const quoteBox = document.getElementById("quote-box");
+        quoteBox.style.opacity = 0; 
+        
+        setTimeout(() => {
+            quoteBox.innerHTML = quotes[randomIndex];
+            quoteBox.style.opacity = 1; 
+        }, 200);
+    }
+
+    function updateMemberUI(id) {
+        const m = memberData[id];
+        
+        const imgEl = document.getElementById("detail-img");
+        const songLinkEl = document.getElementById("detail-song-link");
+        const songDescEl = document.getElementById("detail-song-desc");
+        const nameEl = document.getElementById("detail-name");
+        const descEl = document.getElementById("detail-desc");
+        
+        imgEl.src = m.img;
+        songLinkEl.href = m.recSongUrl;
+        songLinkEl.innerHTML = `📺 推薦 MV：${m.recSong}`;
+        songDescEl.innerHTML = m.recSongDesc;
+        nameEl.innerHTML = `${m.name} ${m.icon}`;
+        descEl.innerHTML = m.desc;
+    }
+
+    function openMember(id){
+      currentIndex = memberOrder.indexOf(id);
+      
+      updateMemberUI(id);
+
+      document.getElementById("member-list-view").style.display="none";
+      document.getElementById("member-detail-view").style.display="block";
+      document.getElementById("member-content").style.opacity = 1;
+
+      // 修改重點：只微調到詳細頁面，不會跳到最上面的抽籤區
+      document.getElementById("member-detail-view").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function changeMember(direction) {
+        const contentDiv = document.getElementById("member-content");
+        contentDiv.style.opacity = 0;
+
+        setTimeout(() => {
+            currentIndex = (currentIndex + direction + memberOrder.length) % memberOrder.length;
+            const nextId = memberOrder[currentIndex];
+            updateMemberUI(nextId);
+            contentDiv.style.opacity = 1;
+        }, 200);
+    }
+
+    function closeMember(){
+      document.getElementById("member-detail-view").style.display="none";
+      document.getElementById("member-list-view").style.display="grid";
+      // 修改重點：返回時滾動到「成員介紹」標題，而不是網頁最頂部
+      document.getElementById("members-title").scrollIntoView({ behavior: "smooth", block: "nearest" }); 
+    }
+  </script>
+</body>
+</html>
